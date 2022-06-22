@@ -656,7 +656,7 @@ git commit -m 'added 3 UTs for customer-service'
 git push --set-upstream origin feature/msp-9
 ```
 
-* Update POM file at root folder for Code Coverage Report using `Jacoco` tool plugin.
+* Update PARENT POM file(springboot profile) at root folder for Code Coverage Report using `Jacoco` tool plugin.
 
 ``` xml
 <plugin>
@@ -691,7 +691,7 @@ git push --set-upstream origin feature/msp-9
 
 ``` bash
 git add .
-git commit -m 'updated POM with Jacoco plugin'
+git commit -m 'updated POM with Jacoco plugin right place'
 git push
 git checkout dev
 git merge feature/msp-9
@@ -701,7 +701,7 @@ git push origin dev
 * Deploy code coverage report (located under relative path `target/site/jacoco` of the microservice) on Simple HTTP Server for only `customer-service` microservice on `Dev Server`.
 
 ``` bash
-python -m SimpleHTTPServer # for python 2.7
+python -m SimpleHTTPServer # for python 2.7      // visit http://localhost:8000/  http://127.0.0.1:8000/
 python3 -m http.server # for python 3+
 ```
 
