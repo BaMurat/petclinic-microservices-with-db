@@ -94,6 +94,7 @@ Resources:
             yum install java-11-amazon-corretto -y
             git clone https://github.com/BaMurat/petclinic-microservices-with-db.git
             cd petclinic-microservices-with-db
+            git fetch
             git checkout dev
   PetclinicServer:
     Type: AWS::EC2::Instance
