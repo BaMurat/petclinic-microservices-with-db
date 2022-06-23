@@ -171,7 +171,7 @@ git push origin dev
 
 
 
-## MSP 14 - Create Docker Registry for Dev Manually
+## MSP 14 - Create Docker Registry for Dev Manually (ECR repo)
 
 - Create `feature/msp-14` branch from `dev`.
 
@@ -183,6 +183,7 @@ git checkout feature/msp-14
 
 * Create a Jenkins Job and name it as `create-ecr-docker-registry-for-dev` to create Docker Registry for `dev` on AWS ECR manually.
 
+* put this in execute shell
 ``` bash
 PATH="$PATH:/usr/local/bin"
 APP_REPO_NAME="clarusway-repo/petclinic-app-dev"
