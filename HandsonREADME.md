@@ -576,6 +576,7 @@ chmod +x test-local-deployment.sh
 ```bash
 ./test-local-deployment.sh
 ```
+* And open port 8080 TCP connection to the world in order to check public_ip_ec2:8080 webserver 
 
 * Commit the change, then push the docker compose file to the remote repo.
 
