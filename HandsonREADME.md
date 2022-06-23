@@ -715,7 +715,7 @@ git branch feature/msp-10
 git checkout feature/msp-10
 ```
 
-* Create a folder for Selenium jobs with the name of `selenium-jobs`.
+* Create a folder for Selenium jobs with the name of `selenium-jobs` in main app directory.
 
 ``` bash
 mkdir selenium-jobs
