@@ -133,6 +133,13 @@ mkdir jenkins
 * Jenkins `CI Job` should be triggered to run on each commit of `feature**` and `bugfix**` branches and on each `PR` merge to `dev` branch.
 
 * Prepare a script for Jenkins CI job (covering Unit Test only) and save it as `jenkins-petclinic-ci-job.sh` under `jenkins` folder.
+    * You can install MAVEN into jenkins and run maven commands to run unittests, or you can run maven jobs in a maven container, as we do below
+    * mvn clean test          -> straight maven command
+    * maven:3.8-openjdk-11    -> using certain maven container directly from terminal
+    * -w /app                 -> workspace for docker image
+    * -v `pwd`:/app           -> volume for the docker image
+    * -v $HOME/.m2:/root/.m2  -> After each clean 'test' execution, gotta create image_root/.m2 file to store dependencies
+    * docker run --rm         -> clean up unnecessary containers before running a new one
 
 ``` bash
 echo 'Running Unit Tests on Petclinic Application'
@@ -145,7 +152,8 @@ docker run --rm -v $HOME/.m2:/root/.m2 -v `pwd`:/app -w /app maven:3.8-openjdk-1
   + Click on the `Webhooks` on the left hand menu, and then click on `Add webhook`.
 
   + Copy the Jenkins URL, paste it into `Payload URL` field, add `/github-webhook/` at the end of URL, and click on `Add webhook`.
-  
+  + You need to update the IP address of Jenkins hostname from webhook after re-starting the server
+
   ``` text
   http://[jenkins-server-hostname]:8080/github-webhook/
   ```
