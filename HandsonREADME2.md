@@ -898,7 +898,7 @@ PATH="$PATH:/usr/local/bin"
 ANS_KEYPAIR="call-ansible-test-dev.key"
 AWS_REGION="us-east-1"
 cd infrastructure/dev-k8s-terraform
-sed -i "s/mattkey/$ANS_KEYPAIR/g" main.tf
+sed -i "s/appServer-Key/$ANS_KEYPAIR/g" main.tf
 terraform init
 terraform apply -auto-approve
 ```
@@ -907,15 +907,15 @@ terraform apply -auto-approve
 
 ```bash
 ANS_KEYPAIR="call-ansible-test-dev.key"
-ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ${WORKSPACE}/${ANS_KEYPAIR} ubuntu@172.31.91.243 hostname
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ${WORKSPACE}/${ANS_KEYPAIR} ubuntu@44.192.98.250 hostname
 ```
 
 - Prepare static inventory file with name of `hosts.ini` for Ansible under `ansible/inventory` folder using Docker machines private IP addresses.
 
 ```ini
-172.31.91.243   ansible_user=ubuntu  
-172.31.87.143   ansible_user=ubuntu
-172.31.90.30    ansible_user=ubuntu
+172.31.4.143   ansible_user=ubuntu  
+172.31.14.76   ansible_user=ubuntu
+172.31.4.18    ansible_user=ubuntu
 ```
 
 - Commit the change, then push to the remote repo.
