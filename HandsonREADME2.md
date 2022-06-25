@@ -882,6 +882,7 @@ terraform --version
   * Click `Save`
 
 - After running the job above, replace the script with the one below in order to test creating key pair for `ansible`.
+ * you can find key under this directory "/var/lib/jenkins/workspace/test-creating-qa-automation-infrastructure/"
 
 ```bash
 PATH="$PATH:/usr/local/bin"
