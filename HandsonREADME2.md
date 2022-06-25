@@ -892,7 +892,7 @@ chmod 400 ${ANS_KEYPAIR}
 ```
 
 - After running the job above, replace the script with the one below in order to test creating kubernetes infrastructure with terraform.
-
+* This is where you initiate Kubernetes clusters through terraform. You need to create the pem key above first
 ```bash
 PATH="$PATH:/usr/local/bin"
 ANS_KEYPAIR="call-ansible-test-dev.key"
@@ -988,6 +988,7 @@ export ANSIBLE_HOST_KEY_CHECKING=False
 ansible -i ./ansible/inventory/dev_stack_dynamic_inventory_aws_ec2.yaml all -m ping
 ```
 
+* source link https://devopscube.com/setup-kubernetes-cluster-kubeadm/ 
 - Create a `ClusterConfiguration file` and save it as `clusterconfig-base.yml` under `ansible/playbooks` folder.
 
 ```yml
@@ -1287,6 +1288,8 @@ git checkout dev
 git merge feature/msp-16
 git push origin dev
 ```
+
+
 ## MSP 17 - Prepare Petlinic Kubernetes YAML Files
 
 * Create `feature/msp-17` branch from `release`.
