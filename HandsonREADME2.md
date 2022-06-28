@@ -1827,7 +1827,7 @@ git commit -m 'added scripts for running dummy selenium job'
 git push --set-upstream origin feature/msp-18
 ```
 
-- Create a Jenkins job with name of `test-running-dummy-selenium-job` to check the setup for selenium tests by running dummy selenium job on `feature/msp-18` branch.
+- Create a Jenkins job with name of `test-running-dummy-selenium-job` to check the setup for selenium tests by running dummy selenium job on `*/feature/msp-18` branch.
 
 - Create Ansible playbook for running all selenium jobs under `selenium-jobs` folder and save it as `pb_run_selenium_jobs.yaml` under `ansible/playbooks` folder.
 
