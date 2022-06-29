@@ -81,7 +81,7 @@ pipeline {
                 echo 'Creating QA Automation Infrastructure for Dev Environment'
                 sh """
                     cd infrastructure/dev-k8s-terraform
-                    sed -i "s/appServer-Key/$ANS_KEYPAIR/g" main.tf
+                    sed -i "s/mattkey/$ANS_KEYPAIR/g" main.tf
                     terraform init
                     terraform apply -auto-approve
                 """
