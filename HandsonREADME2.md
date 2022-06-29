@@ -2288,6 +2288,7 @@ docker push "${IMAGE_TAG_PROMETHEUS_SERVICE}"
         petclinic-app-release stable-petclinic/petclinic_chart --version ${BUILD_NUMBER} \
         --namespace petclinic-qa
 ```
+* put your helm chart name
 
 - Prepare a script to deploy the application on QA environment and save it as `deploy_app_on_qa_environment.sh` under `ansible/scripts` folder.
 
