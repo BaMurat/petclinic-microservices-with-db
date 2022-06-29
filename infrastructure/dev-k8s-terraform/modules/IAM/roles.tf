@@ -1,15 +1,15 @@
 resource "aws_iam_policy" "policy_for_master_role" {
-  name        = "policy_for_master_role"
+  name        = "policy_for_master_role_dev"
   policy      = file("./modules/IAM/policy_for_master.json")
 }
 
 resource "aws_iam_policy" "policy_for_worker_role" {
-  name        = "policy_for_worker_role"
+  name        = "policy_for_worker_role_dev"
   policy      = file("./modules/IAM/policy_for_worker.json")
 }
 
 resource "aws_iam_role" "role_for_master" {
-  name = "role_master_k8s"
+  name = "role_master_k8s_dev"
 
   # Terraform "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
@@ -28,12 +28,12 @@ resource "aws_iam_role" "role_for_master" {
   })
 
   tags = {
-    Name = "role_for_master"
+    Name = "role_for_master_dev"
   }
 }
 
 resource "aws_iam_role" "role_for_worker" {
-  name = "role_worker_k8s"
+  name = "role_worker_k8s_dev"
 
   # Terraform "jsonencode" function converts a
   # Terraform expression result to valid JSON syntax.
@@ -52,7 +52,7 @@ resource "aws_iam_role" "role_for_worker" {
   })
 
   tags = {
-    Name = "role_for_worker"
+    Name = "role_for_worker_dev"
   }
 }
 
@@ -69,12 +69,12 @@ resource "aws_iam_policy_attachment" "attach_for_worker" {
 }
 
 resource "aws_iam_instance_profile" "profile_for_master" {
-  name  = "profile_for_master2"
+  name  = "profile_for_master_dev"
   role = aws_iam_role.role_for_master.name
 }
 
 resource "aws_iam_instance_profile" "profile_for_worker" {
-  name  = "profile_for_worker2"
+  name  = "profile_for_worker_dev"
   role = aws_iam_role.role_for_worker.name
 }
 
