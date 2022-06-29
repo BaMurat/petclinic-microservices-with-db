@@ -1860,7 +1860,11 @@ PATH="$PATH:/usr/local/bin"
 ansible-playbook -vvv --connection=local --inventory 127.0.0.1, --extra-vars "workspace=${WORKSPACE} master_public_ip=${MASTER_PUBLIC_IP}" ./ansible/playbooks/pb_run_selenium_jobs.yaml
 ```
 
-- Prepare a Jenkinsfile for `petclinic-nightly` builds and save it as `jenkinsfile-petclinic-nightly` plain file under `jenkins` folder. Change helm chart s3 bucket name
+- Prepare a Jenkinsfile for `petclinic-nightly` builds and save it as `jenkinsfile-petclinic-nightly` plain file under `jenkins` folder. Change helm chart s3 bucket name, and APP_REPO_NAME for ECR images.
+
+
+Notes of 
+
 
 ```groovy
 pipeline {
