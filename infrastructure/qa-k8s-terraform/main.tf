@@ -7,11 +7,11 @@ module "iam" {
 }
 
 resource "aws_security_group" "matt-kube-mutual-sg" {
-  name = "kube-mutual-sec-group-for-matt"       #empty sec. group to create master-worker nodes. Fail-safe creation method.
+  name = "kube-mutual-sec-group-for-matt-qa"       #empty sec. group to create master-worker nodes. Fail-safe creation method.
 }
 
 resource "aws_security_group" "matt-kube-worker-sg" {
-  name = "kube-worker-sec-group-for-matt"
+  name = "kube-worker-sec-group-for-matt-qa"
   ingress {
     protocol = "tcp"
     from_port = 10250
@@ -52,7 +52,7 @@ resource "aws_security_group" "matt-kube-worker-sg" {
 }
 
 resource "aws_security_group" "matt-kube-master-sg" {
-  name = "kube-master-sec-group-for-matt"
+  name = "kube-master-sec-group-for-matt-qa"
 
   ingress {
     protocol = "tcp"
