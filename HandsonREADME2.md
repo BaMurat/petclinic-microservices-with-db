@@ -1860,10 +1860,9 @@ PATH="$PATH:/usr/local/bin"
 ansible-playbook -vvv --connection=local --inventory 127.0.0.1, --extra-vars "workspace=${WORKSPACE} master_public_ip=${MASTER_PUBLIC_IP}" ./ansible/playbooks/pb_run_selenium_jobs.yaml
 ```
 
-- Prepare a Jenkinsfile for `petclinic-nightly` builds and save it as `jenkinsfile-petclinic-nightly` plain file under `jenkins` folder. Change helm chart s3 bucket name, and APP_REPO_NAME for ECR images.
+- Prepare a Jenkinsfile for `petclinic-nightly` builds and save it as `jenkinsfile-petclinic-nightly` plain file under `jenkins` folder. Change helm chart s3 bucket name, and APP_REPO_NAME for ECR images. Change "pem.key" name from sed command
+- If it fails at "Deploy App on Kubernetes cluster" stage, try to add "--force" flag into "helm s3 push" command at the stage
 
-
-Notes of 
 
 
 ```groovy
@@ -2071,7 +2070,7 @@ mkdir infrastructure/qa-k8s-terraform
 cp -r infrastructure/dev-k8s-terraform/* infrastructure/qa-k8s-terraform/
 ```
 
-- Create a Jenkins Job with the name of `create-permanent-key-pair-for-petclinic-qa-env` for Ansible key pair to be used in QA environment using following script, and save the script as `create-permanent-key-pair-for-qa-environment.sh` under `jenkins` folder.
+- Create a Jenkins Job with the name of `create-permanent-key-pair-for-petclinic-qa-env` for Ansible key pair to be used in QA environment using following script, and save the script as `create-permanent-key-pair-for-qa-environment.sh` under `jenkins` folder. Run this jenkins job manually by "Execute Shell" in Jenkins Dashboard.
 
 ```bash
 PATH="$PATH:/usr/local/bin"
