@@ -2811,7 +2811,7 @@ kubectl create namespace cattle-system
 ```bash
 helm install rancher rancher-latest/rancher \
   --namespace cattle-system \
-  --set hostname=rancher.clarusway.us \
+  --set hostname=rancher.mbayco.net \
   --set tls=external \
   --set replicas=1
 ```
@@ -2822,6 +2822,8 @@ helm install rancher rancher-latest/rancher \
 kubectl -n cattle-system get deploy rancher
 kubectl -n cattle-system get pods
 ```
+* Go to the DNS adress you set, and setup the rancher manualy. Set password, set cloud credentials
+
 
 ## MSP 25 - Create Staging and Production Environment with Rancher
 
