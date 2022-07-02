@@ -3000,6 +3000,12 @@ git branch feature/msp-27
 git checkout feature/msp-27
 ```
 
+* We create 3 clusters with combination of (ETCD, Control_Plane, Worker_node) in order to increase the high availability.
+you can configure kubernetes architecture as(by adding node pool in rancher dashboard);
+1 - (ETCD, Control_Plane, Worker_node) 2 - (ETCD, Control_Plane, Worker_node) 3 - (ETCD, Control_Plane, Worker_node)
+1 - (ETCD, Control_Plane) 2 - ( Worker_node) 3 - ( Worker_node)
+1 - (ETCD) 2 - (Control_Plane) 3 - (Worker_node)
+
 * Create a Kubernetes cluster using Rancher with RKE and new nodes in AWS  and name it as `petclinic-cluster-staging`.
 
 ```text
@@ -3013,7 +3019,7 @@ Worker            : checked
 
 * Create `petclinic-staging-ns` namespace on `petclinic-cluster-staging` with Rancher.
 
-* Create a Jenkins Job and name it as `create-ecr-docker-registry-for-petclinic-staging` to create Docker Registry for `Staging` manually on AWS ECR.
+* Create a freestyle Jenkins Job and name it as `create-ecr-docker-registry-for-petclinic-staging` to create Docker Registry for `Staging` manually on AWS ECR.
 
 ``` bash
 PATH="$PATH:/usr/local/bin"
@@ -3081,7 +3087,7 @@ docker push "${IMAGE_TAG_GRAFANA_SERVICE}"
 docker push "${IMAGE_TAG_PROMETHEUS_SERVICE}"
 ```
 
-* Install `Rancher CLI` on Jenkins Server.
+* Install `Rancher CLI` on Jenkins Server home directory.
 
 ```bash
 curl -SsL "https://github.com/rancher/cli/releases/download/v2.6.0/rancher-linux-amd64-v2.6.0.tar.gz" -o "rancher-cli.tar.gz"
@@ -3091,7 +3097,8 @@ chmod +x /usr/local/bin/rancher
 rancher --version
 ```
   
-* Create Rancher API Key [Rancher API Key](https://rancher.com/docs/rancher/v2.x/en/user-settings/api-keys/#creating-an-api-key) to enable access to the `Rancher` server. Take note, `Access Key (username)` and `Secret Key (password)`.
+* Create Rancher API Key [Rancher API Key](https://rancher.com/docs/rancher/v2.x/en/user-settings/api-keys/#creating-an-api-key) to enable access to the `Rancher` server. Dashboard/Rancher avatar/Account&API keys/create API key
+ Take note, `Access Key (username)` and `Secret Key (password)`.
 
 * Create a credentials with kind of `Username with password` on Jenkins Server using the `Rancher API Key`.
 
@@ -3101,15 +3108,6 @@ rancher --version
 
   * Define an id like `rancher-petclinic-credentials`.
 
-
-* On some systems we need to install Helm S3 plugin as Jenkins user to be able to use S3 with pipeline script. 
-
-``` bash
-sudo su -s /bin/bash jenkins
-export PATH=$PATH:/usr/local/bin
-helm version
-helm plugin install https://github.com/hypnoglow/helm-s3.git
-``` 
 
 * Create a Staging Pipeline on Jenkins with name of `petclinic-staging` with following script and configure a `cron job` to trigger the pipeline every Sundays at midnight (`59 23 * * 0`) on `release` branch. `Petclinic staging pipeline` should be deployed on permanent staging-environment on `petclinic-cluster` Kubernetes cluster under `petclinic-staging-ns` namespace.
 
@@ -3126,7 +3124,7 @@ pipeline {
         AWS_REGION="us-east-1"
         ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
         RANCHER_URL="https://rancher.clarusway.us"
-        // Get the project-id from Rancher UI (petclinic-cluster-staging namespace, View in API, copy projectId )
+        // Get the project-id from Rancher UI (projects/namespaces --> petclinic-cluster-staging namespace --> Edit yaml --> copy projectId )
         RANCHER_CONTEXT="petclinic-cluster:project-id" 
        //First part of projectID
         CLUSTERID="petclinic-cluster"
@@ -3234,7 +3232,7 @@ git checkout feature/msp-28
 
 * Create a Kubernetes cluster using Rancher with RKE and new nodes in AWS (on one EC2 instance only) and name it as `petclinic-cluster`.
 
-```text
+```yml
 Cluster Type      : Amazon EC2
 Name Prefix       : petclinic-k8s-instance
 Count             : 3
@@ -3315,6 +3313,7 @@ docker push "${IMAGE_TAG_PROMETHEUS_SERVICE}"
 
 - At this stage, we will use Amazon RDS instead of mysql pod and service. Create a mysql database on AWS RDS.
 
+```yml
   - Engine options: MySQL
   - Version : 5.7.30
   - Templates: Free tier
@@ -3323,6 +3322,7 @@ docker push "${IMAGE_TAG_PROMETHEUS_SERVICE}"
   - Master password: petclinic
   - Public access: Yes
   - Initial database name: petclinic
+```
 
 - Delete mysql-server-deployment.yaml file from k8s/petclinic_chart/templates folder.
 
