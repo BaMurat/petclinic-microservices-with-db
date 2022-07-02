@@ -2822,7 +2822,7 @@ helm install rancher rancher-latest/rancher \
 kubectl -n cattle-system get deploy rancher
 kubectl -n cattle-system get pods
 ```
-* Go to the DNS adress you set, and setup the rancher manualy. Set password, set cloud credentials
+* Go to the DNS adress you set, and setup the rancher manualy. Set password, set cloud credentials. Login with admin username
 
 
 ## MSP 25 - Create Staging and Production Environment with Rancher
@@ -2889,7 +2889,7 @@ Write `admin` for Username and paste the string which you copied from admin.pass
 
 ### Configure the app for Nexus Operation
 
-- Nexus searchs for settings.xml in the `/home/ec2-user/.m2` directory. .m2 directory is created after running the first mvn command.
+- Nexus searchs for settings.xml in the `/home/ec2-user/.m2` directory.(create manually if not exists, then create setting.xml) .m2 directory is created after running the first mvn command.
 
 - Create teh settings.xml file.
 ```
@@ -2946,11 +2946,12 @@ nano /home/ec2-user/.m2/settings.xml
 
 - Delete .m2 directory under /home/ec2-user/ to see if dependies download from the Nexus server.
 
-- run the mvn command to see if it is worked.
+- run the mvn command to see if it is worked under petclinic main repo directory.
 
 ``` bash
 ./mvnw clean package
 ```
+* check if .m2/repository and nexus_dashboard/browse/maven_central has the same packages
 
 - Add distributionManagement element given below to your pom.xml file after `</dependencies>` line. Include the endpoints to your maven-releases and maven-snapshots repos. Change localhost >>>> Private ip of your server.
 
@@ -2972,8 +2973,9 @@ nano /home/ec2-user/.m2/settings.xml
 - Run following command; Created artifact will be stored in the nexus-releases repository.
 
 ```
-./mvnw clean deploy command
+./mvnw clean deploy
 ```
+* Check if .jar files got deployed to nexus_dashboard/browse/maven_releases
 
 - Note: if you want to redeploy the same artifact to release repository, you need to set Deployment policy : "Allow redeploy".
 
