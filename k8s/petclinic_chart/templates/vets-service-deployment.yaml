@@ -26,9 +26,9 @@ spec:
         io.kompose.service: vets-service
     spec:
       initContainers:
-      - name: init-discovery-server
-        image: busybox
-        command: ['sh', '-c', 'until nc -z discovery-server:8761; do echo waiting for discovery-server; sleep 2; done;']
+        - name: init-discovery-server
+          image: busybox
+          command: ['sh', '-c', 'until nc -z discovery-server:8761; do echo waiting for discovery-server; sleep 2; done;']
       containers:
         - image: '{{ .Values.IMAGE_TAG_VETS_SERVICE }}'
           name: vets-service
