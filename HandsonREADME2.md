@@ -3471,19 +3471,26 @@ git checkout feature/msp-29
 ```
 
 * Create an `A` record of `petclinic.clarusway.us` in your hosted zone (in our case `clarusway.us`) using AWS Route 53 domain registrar and bind it to your `petclinic cluster`.
+* the dns name is defined in the k8s/petclinic_chart/values_template file, and is visible in rancher server/service_discovery/Ingresses
+
 
 * Configure TLS(SSL) certificate for `petclinic.clarusway.us` using `cert-manager` on petclinic K8s cluster with the following steps.
 
 * Log into Jenkins Server and configure the `kubectl` to connect to petclinic cluster by getting the `Kubeconfig` file from Rancher and save it as `$HOME/.kube/config` or set `KUBECONFIG` environment variable.
+* kubectl get node from jenkins to reach rancher kubernetes cluster
+* To reach prod kubernetes clusters
+* /home/ec2-user/.kube
+
 
 ```bash
 #create petclinic-config file under home folder(/home/ec2-user/.kube).
 nano petclinic-config
-# paste the content of kubeconfig file and save it.
+# paste the content of kubeconfig file and save it. Get KUBECONFIG from rancher dashboard from top-right menu of clusters
 chmod 400 petclinic-config
 export KUBECONFIG=/home/ec2-user/.kube/petclinic-config
 # test the kubectl with petclinic namespaces
 kubectl get ns
+kubectl get no
 ```
 
 * Install the `cert-manager` on petclinic cluster. See [Cert-Manager info](https://cert-manager.io/docs/).
@@ -3558,7 +3565,7 @@ kubectl apply -f k8s/tls-cluster-issuer-prod.yml
 kubectl get clusterissuers letsencrypt-prod -n cert-manager -o wide
 ```
 
-* Issue production Let’s Encrypt Certificate by annotating and adding the `api-gateway` ingress resource with following through Rancher.
+* Issue production Let’s Encrypt Certificate by annotating and adding the `api-gateway` ingress resource with following through Rancher. Go Service_deployment/ingress/edit_yaml
 
 ```yaml
 metadata:
