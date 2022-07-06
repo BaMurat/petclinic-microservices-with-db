@@ -3598,7 +3598,19 @@ git push origin main
 ## MSP 30 - Monitoring with Prometheus and Grafana
 
 * Change the port of Prometheus Service to `9090`, so that Grafana can scrape the data.
+* Rancher dashboard/services/prometheus/editYaml
+  ports:
+  - name: "9091"
+    port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    io.kompose.service: prometheus-server
+  sessionAffinity: None
+  type: NodePort
 
-* Create a Kubernetes `NodePort` Service for Prometheus Server on Rancher to expose it.
+* Create a Kubernetes `NodePort` Service for Prometheus Server on Rancher to expose it. And change port from 9091 to 9090 
    
 * Create a Kubernetes `NodePort` Service for Grafana Server on Rancher to expose it.
+
+* Then you can go to links on the service dashboard
